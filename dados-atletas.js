@@ -1,62 +1,75 @@
-Resumo do projeto
+class Atleta {
+    constructor(nome, idade, peso, altura, notas) {
+        this.nome = nome;
+        this.idade = idade;
+        this.peso = peso;
+        this.altura = altura;
+        this.notas = notas;
+    }
 
-Crie uma aplicação capaz de receber informações de um atleta, bem como calcular parâmetros e exibi-los para o usuário.
+    // 1. Calcula a categoria
+    calculaCategoria() {
+        if (this.idade >= 9 && this.idade <= 11) {
+            return "Infantil";
+        } else if (this.idade >= 12 && this.idade <= 13) {
+            return "Juvenil";
+        } else if (this.idade >= 14 && this.idade <= 15) {
+            return "Intermediário";
+        } else if (this.idade >= 16 && this.idade <= 30) {
+            return "Adulto";
+        } else {
+            return "Sem categoria";
+        }
+    }
 
-Introdução
+    // 2. Calcula o IMC
+    calculaIMC() {
+        return this.peso / (this.altura * this.altura);
+    }
 
-Os organizadores da competição realizada durante o projeto anterior gostaram muito da sua solução proposta e do seu perfil de desenvolvimento. Com isso, eles resolveram fazer uma nova encomenda utilizando a linguagem JavaScript, onde você deverá criar um software capaz de receber informações dos atletas e exibir a categoria, IMC, média calculada e demais informações capturadas.
+    // 3. Calcula a média válida
+    calculaMediaValida() {
+        // Copia e ordena as notas
+        let notasOrdenadas = [...this.notas].sort((a, b) => a - b);
 
-Especificações
+        // Remove a menor e a maior
+        let notasValidas = notasOrdenadas.slice(1, 4);
 
-Você deverá criar uma classe Atleta para concentrar os atributos e métodos dos atletas.
+        // Soma as notas válidas
+        let soma = 0;
+        notasValidas.forEach(nota => soma += nota);
 
-A classe deverá receber os seguintes atributos:
+        // Retorna a média
+        return soma / notasValidas.length;
+    }
 
-nome
-idade
-peso
-altura
-notas
-A classe deverá possuir os seguintes métodos:
+    // Métodos de acesso (getters)
+    obtemNomeAtleta() {
+        return this.nome;
+    }
 
-calculaCategoria(), para calcular a categoria do atleta;
-calculaIMC(), para calcular o IMC do atleta;
-calculaMediaValida(), para calcular a média válida do atleta.
-obtemNomeAtleta(), que retorna o nome do atleta
-obtemIdadeAtleta(), que retorna a idade do atleta
-obtemPesoAtleta(), que retorna o peso do atleta
-obtemNotasAtleta(), que retorna as notas do atleta
-obtemCategoria(), que retorna a categoria do atleta
-obtemIMC(), que retorna o IMC do atleta
-obtemMediaValida(), que retorna a média válida do atleta
-Utilize as seguintes regras:
+    obtemIdadeAtleta() {
+        return this.idade;
+    }
 
-1. Para calcular a categoria
+    obtemPesoAtleta() {
+        return this.peso;
+    }
 
-Infantil: 9 a 11 anos
-Juvenil: 12 e 13 anos
-Intermediário: 14 e 15 anos
-Adulto: 16 a 30 anos
-Sem categoria: demais idades
-2. Para calcular o IMC
+    obtemNotasAtleta() {
+        return this.notas.join(",");
+    }
 
-Fórmula: imc = peso / (altura x altura)
-3. Para calcular a média válida
+    obtemCategoria() {
+        return this.calculaCategoria();
+    }
 
-Método: Utilize o metodologia abordada no Projeto de Certificação 1.
-Exemplo de entrada
+    obtemIMC() {
+        return this.calculaIMC();
+    }
 
-// Declara o atleta
-const atleta = new Atleta("Cesar Abascal",
-    30, 80, 1.70,
-    [10, 9.34, 8.42, 10, 7.88]);
-Exemplo de saída
+    obtemMediaValida() {
+        return this.calculaMediaValida();
+    }
+}
 
-Nome: Cesar Abascal
-Idade: 30
-Peso: 80
-Altura: 1.7
-Notas: 10,9.34,8.42,10,7.88
-Categoria: Adulto
-IMC: 27.68166089965398
-Média válida: 9,25333333
